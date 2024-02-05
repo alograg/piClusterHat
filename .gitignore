@@ -1,0 +1,7 @@
+*.zip
+*.tar
+*.tar.xz
+output.txt
+typescript
+k3s*/
+piHatAnsible/hosts.ini

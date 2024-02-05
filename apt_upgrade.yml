@@ -1,0 +1,26 @@
+---
+- hosts: piCluster
+  remote_user: pi
+  become: true
+
+  tasks:
+    - name: Update and upgrade apt packages
+      become: true
+      apt:
+        upgrade: dist
+        update_cache: yes
+        autoclean: yes
+        autoremove: yes
+
+    - name: Check if reboot required
+      stat:
+        path: /var/run/reboot-required
+      register: reboot_required_file
+
+    - name: Reboot PI
+      shell: nohup bash -c 'sleep 5 && echo "reboot; $(date)" > reboot.log && shutdown -r now' &
+      when: reboot_required_file.stat.exists
+
+    - name: Wait for reboot
+      wait_for_connection: timeout=240 delay=180
+      when: reboot_required_file.stat.exists

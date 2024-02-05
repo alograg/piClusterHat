@@ -1,0 +1,10 @@
+---
+- hosts: master
+  remote_user: pi
+
+  tasks:
+    - name: "Download Kube Config"
+      fetch:
+        src: ~/.kube/config
+        dest: ~/.kube/piHatAnsible
+        flat: yes

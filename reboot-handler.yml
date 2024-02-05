@@ -1,0 +1,6 @@
+---
+- name: Reboot PI
+  shell: nohup bash -c 'sleep 5 && echo "reboot; $(date)" > reboot.log && shutdown -r now' &
+
+- name: Wait for reboot
+  wait_for_connection: timeout=240 delay=180

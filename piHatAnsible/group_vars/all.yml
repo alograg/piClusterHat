@@ -1,0 +1,11 @@
+---
+k3s_version: v1.19.3+k3s3
+ansible_connection: ssh
+host_key_checking: false
+ansible_user: pi
+ansible_ssh_pass: clusterctrl
+systemd_dir: /etc/systemd/system
+master_ip: "{{ hostvars[groups['master'][0]]['ansible_host'] | default(groups['master'][0]) }}"
+extra_server_args: ""
+extra_agent_args: ""
+ansible_python_interpreter: "auto_legacy_silent"

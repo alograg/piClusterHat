@@ -1,0 +1,8 @@
+---
+- hosts: piCluster
+  remote_user: pi
+
+  tasks:
+    - name: Check if K3s is installed
+      shell: command -v k3s >/dev/null 2>&1
+      register: is_k3s_exist

@@ -1,0 +1,12 @@
+[master]
+cbridge
+
+[in_hat]
+p1
+p2
+p3
+p4
+
+[piCluster:children]
+master
+in_hat

@@ -1,0 +1,22 @@
+---
+- hosts: piCluster
+  remote_user: pi
+  become: true
+
+  tasks:
+    - name: Reboot PI
+      #   reboot:
+      #     connect_timeout: 50
+      #     #msg: "Reboot initiated by Ansible for updates"
+      #     post_reboot_delay: 200
+      #     #pre_reboot_delay: 0
+      #     #reboot_command: shutdown -r
+      #     #reboot_timeout: 200
+      #     #test_command: uptime
+      shell: nohup bash -c 'sleep 5 && echo "reboot; $(date)" > reboot.log && shutdown -r now' &
+
+    - name: Wait for reboot
+      wait_for_connection: timeout=240 delay=180
+
+    - name: Reboot log
+      shell: cat reboot.log && uptime -s
